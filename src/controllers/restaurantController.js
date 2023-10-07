@@ -95,7 +95,7 @@ const rateRes = async (req, res) => {
     }
 
 }
-//lấy danh sách like theo nhà hàng
+//lấy danh sách đánh giá theo nhà hàng
 const getRateRes = async (req, res) => {
     let { resId } = req.params;
     let data = await model.rate_res.findAll({
@@ -105,7 +105,7 @@ const getRateRes = async (req, res) => {
     })
     res.send(data)
 }
-//lấy danh sách like theo user
+//lấy danh sách đánh giá theo user
 const getRateResByUser = async (req, res) => {
     let { userId } = req.params;
     let data = await model.rate_res.findAll({
@@ -116,6 +116,24 @@ const getRateResByUser = async (req, res) => {
     res.send(data)
 }
 
+//thêm order
+
+const addOrder = async (req, res) => {
+    let { userId } = req.params;
+    let { foodId, amountAdd } = req.body;
+
+    let newData = {
+        user_id: userId,
+        food_id: foodId,
+        amount: amountAdd,
+        code: "ABC" + Math.floor(Math.random() * 999),
+        arr_sub_id: "DEF" + Math.floor(Math.random() * 999)
+    }
+    let data = await model.order_order.create(newData)
+
+    res.send(data)
+}
+
 export {
-    getLikeRestaurant, getLikeRestaurantByUser, likeRes, rateRes, getRateRes, getRateResByUser
+    getLikeRestaurant, getLikeRestaurantByUser, likeRes, rateRes, getRateRes, getRateResByUser, addOrder
 }
